@@ -21,6 +21,4 @@ signupForm.addEventListener("submit", (e) => {
 		signupForm.reset()
 		alert("Congrats! New user account added");
 
-
-	
 });
