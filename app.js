@@ -5,11 +5,8 @@ signupForm.addEventListener("submit", (e) => {
 
 	// get user email
 	const email = signupForm["email"].value;
-	console.log(email);
-	
 	// get user email
 	const password = signupForm["password"].value;
-	console.log(password);
 
 	firebase
 		.auth()
@@ -19,5 +16,5 @@ signupForm.addEventListener("submit", (e) => {
 			var errorCode = error.code;
 			var errorMessage = error.message;
 			// ...
-	})
-};
+		});
+});
