@@ -11,13 +11,12 @@ signupForm.addEventListener("submit", (e) => {
 	firebase
 		.auth()
 		.createUserWithEmailAndPassword(email, password)
+		.then(signupForm.reset())
+		.then(alert("Congrats! New user account added"))
 		.catch(function (error) {
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			alert(errorMessage, "Please use @ and a valid ending");
+			alert(errorMessage, "Please use @ and a valid domain");
 		});
-
-	signupForm.reset();
-	alert("Congrats! New user account added");
 });
