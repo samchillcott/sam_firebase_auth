@@ -15,6 +15,9 @@ signupForm.addEventListener("submit", (e) => {
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			// ...
+			alert(errorMessage, "Please use @ and a valid ending");
 		});
+
+	signupForm.reset();
+	alert("Congrats! New user account added");
 });
