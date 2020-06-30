@@ -8,15 +8,16 @@ signupForm.addEventListener("submit", (e) => {
 	// get user email
 	const password = signupForm["password"].value;
 
-	firebase
-		.auth()
-		.createUserWithEmailAndPassword(email, password)
-		.then(signupForm.reset())
-		.then(alert("Congrats! New user account added"))
-		.catch(function (error) {
-			// Handle Errors here.
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			alert(errorMessage, "Please use @ and a valid domain");
-		});
+	try {
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(email, password)
+			.then(signupForm.reset())
+			.then(alert("Congrats! New user account added"));
+	} catch (error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		alert(error.code, errorMessage, "Please use @ and a valid domain");
+	}
 });
