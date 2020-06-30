@@ -7,10 +7,30 @@
 	</head>
 	<body>
 		<form>
-			<p>Create Firebase Account</p>
+			<h2>Sign Up</h2>
 			<input type="text" placeholder="email address" />
 			<input type="text" placeholder="password" />
 			<button>Submit</button>
 		</form>
+
+		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDZ0FDRTdn2RS77ReuryX-OXRZ3MOh5t7M",
+				authDomain: "firebasic-b4186.firebaseapp.com",
+				databaseURL: "https://firebasic-b4186.firebaseio.com",
+				projectId: "firebasic-b4186",
+				storageBucket: "firebasic-b4186.appspot.com",
+				messagingSenderId: "960986170310",
+				appId: "1:960986170310:web:065ea5806ed9a27077a8c7",
+				measurementId: "G-9X9FSHX71X",
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+		</script>
 	</body>
 </html>
