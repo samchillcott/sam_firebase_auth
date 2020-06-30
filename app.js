@@ -10,15 +10,14 @@ signupForm.addEventListener("submit", (e) => {
 
 	firebase
 		.auth()
-		.createUserWithEmailAndPassword(email, password).catch(function(error) {
-
-		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		alert(errorMessage);
+		.createUserWithEmailAndPassword(email, password)
+		.catch(function (error) {
+			// Handle Errors here.
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			alert(errorMessage);
 		});
 
-		signupForm.reset()
-		alert("Congrats! New user account added");
-
+	signupForm.reset();
+	alert("Congrats! New user account added");
 });
