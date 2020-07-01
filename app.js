@@ -2,7 +2,6 @@ const signupForm = document.querySelector("#signup-form");
 
 signupForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-	console.log("FB triggered");
 
 	// get user email
 	const email = signupForm["email"].value;
@@ -11,7 +10,6 @@ signupForm.addEventListener("submit", (e) => {
 
 	const firebaseCreate = async () => {
 		let response = null;
-		console.log("FB create triggered");
 
 		try {
 			response = await firebase
