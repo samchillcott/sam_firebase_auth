@@ -6,14 +6,21 @@
 		<title>Upload</title>
 	</head>
 	<body>
-        
-        // Change this part to upload form
-        <form id="signup-form">
+        <!-- upload form -->
+        <form id="upload-form" 
+                action="/action_page.php"
+                >
+            <p>Upload your image</p>
+            <input type="file" id="myFile" name="filename">
+            <input type="submit">
+          </form>
+
+        <!-- <form id="signup-form">
 			<h2>Sign Up</h2>
 			<input type="email" placeholder="email address" id="email" />
 			<input type="password" placeholder="password" id="password" />
 			<button>Submit</button>
-		</form>
+		</form> -->
 
 		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
@@ -32,7 +39,10 @@
 				measurementId: "G-9X9FSHX71X",
 			};
 			// Initialize Firebase
-			firebase.initializeApp(firebaseConfig);
+            firebase.initializeApp(firebaseConfig);
+            
+            var db = firebase.firestore();
+
 		</script>
 		<script src="app.js"></script>
 	</body>
