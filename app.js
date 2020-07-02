@@ -19,7 +19,6 @@ signupForm.addEventListener("submit", (e) => {
 				.createUserWithEmailAndPassword(email, password);
 
 			// if the response was successful, let the user know and reset the form
-
 			if (response.additionalUserInfo.isNewUser) {
 				signupForm.reset();
 				alert("Congrats! New user account added");
@@ -31,7 +30,6 @@ signupForm.addEventListener("submit", (e) => {
 			alert(errorMessage);
 		}
 	};
-
 	firebaseCreate();
 });
 
@@ -40,3 +38,12 @@ signupForm.addEventListener("submit", (e) => {
 const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
+
+// Upload File
+
+const uploadForm = document.querySelector("#upload-form");
+
+uploadForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+
+}
