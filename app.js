@@ -45,14 +45,11 @@ const uploadForm = document.querySelector("#upload-form");
 
 uploadForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-	console.log(uploadForm);
+	// console.log(uploadForm);
 	const myImg = uploadForm["myFile"].value;
 	console.log(myImg);
 
-	// set teh fb post function
-
-	// firebase.auth().createUserWithEmailAndPassword(email, password);
-
+	//Upload file to Firebase Collection as an Object
 	db.collection("Images")
 		.doc("ImagesDoc")
 		.set({
