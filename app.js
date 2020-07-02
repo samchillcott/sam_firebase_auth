@@ -1,3 +1,5 @@
+// Sign Up
+
 const signupForm = document.querySelector("#signup-form");
 
 signupForm.addEventListener("submit", (e) => {
@@ -32,3 +34,9 @@ signupForm.addEventListener("submit", (e) => {
 
 	firebaseCreate();
 });
+
+// Firestore Database
+
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
