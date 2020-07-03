@@ -41,14 +41,43 @@
 
 //Upload Image to Storage
 
+// const uploadForm = document.querySelector("#upload-form");
+
+// uploadForm.addEventListener("submit", (e) => {
+// 	e.preventDefault();
+// 	var ref = firebase.storage().ref();
+
+// 	const file = new File(uploadForm["myFile"]);
+// 	ref.put(file).then(function (snapshot) {
+// 		console.log("Uploaded a blob or file!");
+// 	});
+// });
+
+// Upload Image Dcode version
+
 const uploadForm = document.querySelector("#upload-form");
 
 uploadForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-	var storageRef = firebase.storage().ref(uploadForm);
 
-	const file = uploadForm["myFile"].value;
-	ref.put(file).then(function (snapshot) {
+	// Create a root reference
+	var storageRef = firebase.storage().ref();
+
+	console.log(storageRef);
+
+	// // Create a reference to 'mountains.jpg'
+	// var imgName = storageRef.child("mountains.jpg");
+
+	// // Create a reference to 'images/mountains.jpg'
+	// var mountainImagesRef = storageRef.child("images/mountains.jpg");
+
+	const file = document.querySelector("#myFile");
+	const fileToUpload = file.files[0];
+	console.log(file.files[0]);
+	// file.addEventListener('change', function() {
+	// 	console.log(file.files);
+	// } );
+	storageRef.put(fileToUpload).then(function (snapshot) {
 		console.log("Uploaded a blob or file!");
 	});
 });
