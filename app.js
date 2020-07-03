@@ -39,23 +39,33 @@
 // // Required for side-effects
 // require("firebase/firestore");
 
-// Upload File
+
+//Upload Image to Storage
 
 const uploadForm = document.querySelector("#upload-form");
 
 uploadForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-	// console.log(uploadForm);
-	const myImg = uploadForm["myFile"].value;
-	console.log(myImg);
 
-	//Upload file to Firebase Collection as an Object
-	db.collection("Images")
-		.doc("ImagesDoc")
-		.set({
-			myImg,
-		})
-		.then(function () {
-			console.log("Document successfully written!");
-		});
-});
+
+
+// Upload To Database
+
+// const uploadForm = document.querySelector("#upload-form");
+
+// uploadForm.addEventListener("submit", (e) => {
+// 	e.preventDefault();
+// 	// console.log(uploadForm);
+// 	const myImg = uploadForm["myFile"].value;
+// 	console.log(myImg);
+
+// 	//Upload file to Firebase Collection as an Object
+// 	db.collection("Images")
+// 		.doc("ImagesDoc")
+// 		.set({
+// 			myImg,
+// 		})
+// 		.then(function () {
+// 			console.log("Document successfully written!");
+// 		});
+// });
