@@ -39,15 +39,19 @@
 // // Required for side-effects
 // require("firebase/firestore");
 
-
 //Upload Image to Storage
 
 const uploadForm = document.querySelector("#upload-form");
 
 uploadForm.addEventListener("submit", (e) => {
 	e.preventDefault();
+	var storageRef = firebase.storage().ref(uploadForm);
 
-
+	const file = uploadForm["myFile"].value;
+	ref.put(file).then(function (snapshot) {
+		console.log("Uploaded a blob or file!");
+	});
+});
 
 // Upload To Database
 
