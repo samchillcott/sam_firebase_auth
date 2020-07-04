@@ -73,10 +73,19 @@ uploadForm.addEventListener("submit", (e) => {
 
 	const file = document.querySelector("#myFile");
 	const fileToUpload = file.files[0];
-	console.log(file.files[0]);
+	console.log(file.files[0].type);
 	// file.addEventListener('change', function() {
 	// 	console.log(file.files);
 	// } );
+
+	const metaData = {
+		name: file.files[0].name,
+		size: file.files[0].size,
+		extension: file.files[0].type
+	};
+
+	console.log(metaData);
+
 	storageRef.put(fileToUpload).then(function (snapshot) {
 		console.log("Uploaded a blob or file!");
 	});
