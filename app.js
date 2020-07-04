@@ -61,19 +61,26 @@ uploadForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 
 	// Create a root reference
-	var storageRef = firebase.storage().ref();
+	
 
-	console.log(storageRef);
 
-	// // Create a reference to 'mountains.jpg'
-	// var imgName = storageRef.child("mountains.jpg");
+	// // // Create a reference to 'mountains.jpg'
+	// var imgName = storageRef.child(file.files[0].name.toString());
 
-	// // Create a reference to 'images/mountains.jpg'
+	// console.log(imgName);
+
+	// // // Create a reference to 'images/mountains.jpg'
 	// var mountainImagesRef = storageRef.child("images/mountains.jpg");
+
+	// //check the storage ref has all teh info
+	// console.log(storageRef);
+
 
 	const file = document.querySelector("#myFile");
 	const fileToUpload = file.files[0];
-	console.log(file.files[0].type);
+
+	var storageRef = firebase.storage().ref().child(file.files[0].name);
+
 	// file.addEventListener('change', function() {
 	// 	console.log(file.files);
 	// } );
