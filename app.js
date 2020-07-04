@@ -52,15 +52,18 @@ uploadForm.addEventListener("submit", (e) => {
 	console.log(fileMetaData);
 
 	storageRef.put(fileToUpload).then(function (snapshot) {
-		console.log("Uploaded a blob or file!");
+		console.log("Uploaded file to Storage!");
 	});
 
 	// Upload metadata to DB
 
-	db.collection("Images")
-		.doc("ImagesDoc")
+	db.collection("imageCollection")
+		.doc("imageDocument")
 		.set(fileMetaData)
 		.then(function () {
-			console.log("Document successfully written!");
+			console.log("Document successfully written to Database!");
+		})
+		.catch(function (error) {
+			console.error("Error writing document: ", error);
 		});
 });
