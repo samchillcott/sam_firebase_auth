@@ -33,88 +33,34 @@
 // 	firebaseCreate();
 // });
 
-// // Firestore Database
-
-// const firebase = require("firebase");
-// // Required for side-effects
-// require("firebase/firestore");
-
-//Upload Image to Storage
-
-// const uploadForm = document.querySelector("#upload-form");
-
-// uploadForm.addEventListener("submit", (e) => {
-// 	e.preventDefault();
-// 	var ref = firebase.storage().ref();
-
-// 	const file = new File(uploadForm["myFile"]);
-// 	ref.put(file).then(function (snapshot) {
-// 		console.log("Uploaded a blob or file!");
-// 	});
-// });
-
-// Upload Image Dcode version
-
 const uploadForm = document.querySelector("#upload-form");
 
 uploadForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-
-	// Create a root reference
-	
-
-
-	// // // Create a reference to 'mountains.jpg'
-	// var imgName = storageRef.child(file.files[0].name.toString());
-
-	// console.log(imgName);
-
-	// // // Create a reference to 'images/mountains.jpg'
-	// var mountainImagesRef = storageRef.child("images/mountains.jpg");
-
-	// //check the storage ref has all teh info
-	// console.log(storageRef);
-
 
 	const file = document.querySelector("#myFile");
 	const fileToUpload = file.files[0];
 
 	var storageRef = firebase.storage().ref().child(file.files[0].name);
 
-	// file.addEventListener('change', function() {
-	// 	console.log(file.files);
-	// } );
-
-	const metaData = {
+	const fileMetaData = {
 		name: file.files[0].name,
 		size: file.files[0].size,
-		extension: file.files[0].type
+		extension: file.files[0].type,
 	};
 
-	console.log(metaData);
+	console.log(fileMetaData);
 
 	storageRef.put(fileToUpload).then(function (snapshot) {
 		console.log("Uploaded a blob or file!");
 	});
+
+	// Upload metadata to DB
+
+	db.collection("Images")
+		.doc("ImagesDoc")
+		.set(fileMetaData)
+		.then(function () {
+			console.log("Document successfully written!");
+		});
 });
-
-// Upload To Database
-
-// const uploadForm = document.querySelector("#upload-form");
-
-// uploadForm.addEventListener("submit", (e) => {
-// 	e.preventDefault();
-// 	// console.log(uploadForm);
-// 	const myImg = uploadForm["myFile"].value;
-// 	console.log(myImg);
-
-// 	//Upload file to Firebase Collection as an Object
-// 	db.collection("Images")
-// 		.doc("ImagesDoc")
-// 		.set({
-// 			myImg,
-// 		})
-// 		.then(function () {
-// 			console.log("Document successfully written!");
-// 		});
-// });
