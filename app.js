@@ -58,8 +58,8 @@ uploadForm.addEventListener("submit", (e) => {
 	// Upload metadata to DB
 
 	db.collection("imageCollection")
-		// .doc("imageDocument")
-		.add(fileMetaData)
+		.doc(fileMetaData.name)
+		.set(fileMetaData)
 		.then(function () {
 			console.log("Document successfully written to Database!");
 		})
