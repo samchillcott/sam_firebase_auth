@@ -25,6 +25,7 @@ try {
 				if (response.additionalUserInfo.isNewUser) {
 					signupForm.reset();
 					alert("Congrats! New user account added");
+					window.location.replace("./upload.html");
 				}
 			} catch (error) {
 				// Handle Errors here.
@@ -33,8 +34,8 @@ try {
 				alert(errorMessage);
 			}
 		};
+
 		firebaseCreate();
-		// window.location.replace("./upload.html");
 	});
 } catch (e) {}
 
@@ -83,7 +84,7 @@ try {
 				console.error("Error writing document: ", error);
 			});
 
-		uploadForm.reset();
 		alert("File added to Storage and metadata added to Firestore!");
+		uploadForm.reset();
 	});
 } catch (e) {}
