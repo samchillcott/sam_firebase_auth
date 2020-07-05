@@ -2,82 +2,88 @@
 
 const signupForm = document.querySelector("#signup-form");
 
-signupForm.addEventListener("submit", (e) => {
-	e.preventDefault();
+try {
+	// .addEventListener here
 
-	// get user email
-	const email = signupForm["email"].value;
-	// get user email
-	const password = signupForm["password"].value;
+	signupForm.addEventListener("submit", (e) => {
+		e.preventDefault();
 
-	const firebaseCreate = async () => {
-		let response = null;
+		// get user email
+		const email = signupForm["email"].value;
+		// get user email
+		const password = signupForm["password"].value;
 
-		try {
-			response = await firebase
-				.auth()
-				.createUserWithEmailAndPassword(email, password);
+		const firebaseCreate = async () => {
+			let response = null;
 
-			// if the response was successful, let the user know and reset the form
-			if (response.additionalUserInfo.isNewUser) {
-				signupForm.reset();
-				alert("Congrats! New user account added");
+			try {
+				response = await firebase
+					.auth()
+					.createUserWithEmailAndPassword(email, password);
+
+				// if the response was successful, let the user know and reset the form
+				if (response.additionalUserInfo.isNewUser) {
+					signupForm.reset();
+					alert("Congrats! New user account added");
+				}
+			} catch (error) {
+				// Handle Errors here.
+				let errorCode = error.code;
+				let errorMessage = error.message;
+				alert(errorMessage);
 			}
-		} catch (error) {
-			// Handle Errors here.
-			let errorCode = error.code;
-			let errorMessage = error.message;
-			alert(errorMessage);
-		}
-	};
-	firebaseCreate();
-	window.location.replace("./upload.html");
-});
+		};
+		firebaseCreate();
+		// window.location.replace("./upload.html");
+	});
+} catch (e) {}
 
 // Upload File & Data
 
 const uploadForm = document.querySelector("#upload-form");
 
-uploadForm.addEventListener("submit", (e) => {
-	e.preventDefault();
+try {
+	uploadForm.addEventListener("submit", (e) => {
+		e.preventDefault();
 
-	const file = document.querySelector("#myFile");
-	const fileToUpload = file.files[0];
+		const file = document.querySelector("#myFile");
+		const fileToUpload = file.files[0];
 
-	var storageRef = firebase.storage().ref().child(file.files[0].name);
+		var storageRef = firebase.storage().ref().child(file.files[0].name);
 
-	function bytesToSize(bytes) {
-		const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-		if (bytes === 0) return "n/a";
-		const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
-		if (i === 0) return `${bytes} ${sizes[i]})`;
-		return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
-	}
+		function bytesToSize(bytes) {
+			const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+			if (bytes === 0) return "n/a";
+			const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+			if (i === 0) return `${bytes} ${sizes[i]})`;
+			return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
+		}
 
-	const fileMetaData = {
-		name: file.files[0].name,
-		size: bytesToSize(file.files[0].size),
-		extension: file.files[0].type,
-	};
+		const fileMetaData = {
+			name: file.files[0].name,
+			size: bytesToSize(file.files[0].size),
+			extension: file.files[0].type,
+		};
 
-	console.log(fileMetaData);
+		console.log(fileMetaData);
 
-	storageRef.put(fileToUpload).then(function (snapshot) {
-		console.log("Uploaded file to Storage!");
-	});
-
-	// Upload metadata to DB
-
-	db.collection("imageCollection")
-		.doc(fileMetaData.name)
-		.set(fileMetaData)
-		.then(function () {
-			console.log("Document successfully written to Database!");
-		})
-		.catch(function (error) {
-			console.error("Error writing document: ", error);
+		storageRef.put(fileToUpload).then(function (snapshot) {
+			console.log("Uploaded file to Storage!");
 		});
 
-	uploadForm.reset();
-	alert("File added to Storage and metadata added to Firestore!");
-});
+		// Upload metadata to DB
+
+		db.collection("imageCollection")
+			.doc(fileMetaData.name)
+			.set(fileMetaData)
+			.then(function () {
+				console.log("Document successfully written to Database!");
+			})
+			.catch(function (error) {
+				console.error("Error writing document: ", error);
+			});
+
+		uploadForm.reset();
+		alert("File added to Storage and metadata added to Firestore!");
+	});
+} catch (e) {}
