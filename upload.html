@@ -6,14 +6,19 @@
 		<title>Upload</title>
 	</head>
 	<body>
-        <!-- upload form -->
-        <form id="upload-form">
-            <p>Upload your image</p>
-            <input type="file" id="myFile" name="filename">
-            <input type="submit">
-          </form>
+		<nav>
+			<a href="./index.html">Sign Up</a>
+			<a class="active" href="#">Upload</a>
+		</nav>
 
-        <!-- <form id="signup-form">
+		<!-- upload form -->
+		<form id="upload-form">
+			<p>Upload your image</p>
+			<input type="file" id="myFile" name="filename" />
+			<input type="submit" />
+		</form>
+
+		<!-- <form id="signup-form">
 			<h2>Sign Up</h2>
 			<input type="email" placeholder="email address" id="email" />
 			<input type="password" placeholder="password" id="password" />
@@ -24,7 +29,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
-		
 
 		<script>
 			// Your web app's Firebase configuration
@@ -37,17 +41,15 @@
 				messagingSenderId: "960986170310",
 				appId: "1:960986170310:web:065ea5806ed9a27077a8c7",
 				measurementId: "G-9X9FSHX71X",
-				storageBucket: "gs://firebasic-b4186.appspot.com"
-
+				storageBucket: "gs://firebasic-b4186.appspot.com",
 			};
 			// Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            
-			var db = firebase.firestore();
-			
-			// Get a reference to the storage service, which is used to create references in your storage bucket
-  			var storage = firebase.storage();
+			firebase.initializeApp(firebaseConfig);
 
+			var db = firebase.firestore();
+
+			// Get a reference to the storage service, which is used to create references in your storage bucket
+			var storage = firebase.storage();
 		</script>
 		<script src="app.js"></script>
 	</body>
