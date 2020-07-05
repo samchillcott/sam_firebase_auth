@@ -57,8 +57,6 @@ uploadForm.addEventListener("submit", (e) => {
 		extension: file.files[0].type,
 	};
 
-
-
 	console.log(fileMetaData);
 
 	storageRef.put(fileToUpload).then(function (snapshot) {
