@@ -43,11 +43,21 @@ uploadForm.addEventListener("submit", (e) => {
 
 	var storageRef = firebase.storage().ref().child(file.files[0].name);
 
+	function bytesToSize(bytes) {
+		const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+		if (bytes === 0) return 'n/a'
+		const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+		if (i === 0) return `${bytes} ${sizes[i]})`
+		return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
+	  }
+	
 	const fileMetaData = {
 		name: file.files[0].name,
-		size: file.files[0].size,
+		size: bytesToSize(file.files[0].size),
 		extension: file.files[0].type,
 	};
+
+
 
 	console.log(fileMetaData);
 
@@ -66,4 +76,7 @@ uploadForm.addEventListener("submit", (e) => {
 		.catch(function (error) {
 			console.error("Error writing document: ", error);
 		});
+
+	uploadForm.reset();
+	alert("File added to Storage and metadata added to Firestore!");
 });
