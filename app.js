@@ -52,6 +52,7 @@ try {
 
 		var storageRef = firebase.storage().ref().child(file.files[0].name);
 
+		//Convert bytes to size
 		function bytesToSize(bytes) {
 			const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
 			if (bytes === 0) return "n/a";
@@ -60,6 +61,7 @@ try {
 			return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
 		}
 
+		// Pull out metadata from file
 		const fileMetaData = {
 			name: file.files[0].name,
 			size: bytesToSize(file.files[0].size),
@@ -68,9 +70,16 @@ try {
 
 		console.log(fileMetaData);
 
-		storageRef.put(fileToUpload).then(function (snapshot) {
-			console.log("Uploaded file to Storage!");
-		});
+		// Upload to Storage
+
+		storageRef
+			.put(fileToUpload)
+			.then(function (snapshot) {
+				console.log("Uploaded file to Storage!");
+			})
+			.catch(function (error) {
+				console.error("Error uploading to Storage: ", error);
+			});
 
 		// Upload metadata to DB
 
