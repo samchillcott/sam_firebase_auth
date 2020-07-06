@@ -79,7 +79,13 @@ try {
 					console.log("Uploaded file to Storage!");
 				})
 				.catch(function (error) {
-					console.error("Error uploading to Storage: ", error);
+					if (error.code === "storage/unauthorized") {
+						console.error(
+							"Error uploading to Storage: Please sign up for an account",
+							error
+						);
+						alert("Error uploading to Storage: Please sign up for an account");
+					}
 				});
 
 			// Upload metadata to Cloud Firestore
