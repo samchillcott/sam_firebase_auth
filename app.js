@@ -52,6 +52,7 @@ try {
 
 		var storageRef = firebase.storage().ref().child(file.files[0].name);
 
+		//Convert bytes to size
 		function bytesToSize(bytes) {
 			const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
 			if (bytes === 0) return "n/a";
@@ -60,31 +61,45 @@ try {
 			return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
 		}
 
+		// Pull out metadata from file
 		const fileMetaData = {
 			name: file.files[0].name,
 			size: bytesToSize(file.files[0].size),
 			extension: file.files[0].type,
 		};
 
-		console.log(fileMetaData);
+		// async function for both uploads
 
-		storageRef.put(fileToUpload).then(function (snapshot) {
-			console.log("Uploaded file to Storage!");
+		async function doubleUpload() {
+			// Upload to Storage
+
+			await storageRef
+				.put(fileToUpload)
+				.then(function (snapshot) {
+					console.log("Uploaded file to Storage!");
+				})
+				.catch(function (error) {
+					console.error("Error uploading to Storage: ", error);
+				});
+
+			// Upload metadata to Cloud Firestore
+
+			await db
+				.collection("imageCollection")
+				.doc(fileMetaData.name)
+				.set(fileMetaData)
+				.then(function () {
+					console.log("Document successfully written to Database!");
+				})
+				.catch(function (error) {
+					console.error("Error writing document: ", error);
+				});
+		}
+
+		doubleUpload().then(function () {
+			console.log("Double Upload complete");
+			alert("File added to Storage and metadata added to Firestore");
+			uploadForm.reset();
 		});
-
-		// Upload metadata to DB
-
-		db.collection("imageCollection")
-			.doc(fileMetaData.name)
-			.set(fileMetaData)
-			.then(function () {
-				console.log("Document successfully written to Database!");
-			})
-			.catch(function (error) {
-				console.error("Error writing document: ", error);
-			});
-
-		alert("File added to Storage and metadata added to Firestore!");
-		uploadForm.reset();
 	});
 } catch (e) {}
