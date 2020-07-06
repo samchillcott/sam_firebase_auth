@@ -97,6 +97,7 @@ try {
 		}
 
 		doubleUpload().then(function () {
+			console.log("Double Upload complete");
 			alert("File added to Storage and metadata added to Firestore");
 			uploadForm.reset();
 		});
