@@ -80,11 +80,10 @@ try {
 				})
 				.catch(function (error) {
 					if (error.code === "storage/unauthorized") {
-						console.error(
-							"Error uploading to Storage: Please sign up for an account",
-							error
-						);
+						console.log(error);
 						alert("Error uploading to Storage: Please sign up for an account");
+					} else {
+						alert(error);
 					}
 				});
 
@@ -108,4 +107,6 @@ try {
 			uploadForm.reset();
 		});
 	});
-} catch (e) {}
+} catch (e) {
+	console.log(e);
+}
