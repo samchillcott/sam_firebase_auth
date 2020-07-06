@@ -68,32 +68,37 @@ try {
 			extension: file.files[0].type,
 		};
 
-		console.log(fileMetaData);
+		// async function for both uploads
 
-		// Upload to Storage
+		async function doubleUpload() {
+			// Upload to Storage
 
-		storageRef
-			.put(fileToUpload)
-			.then(function (snapshot) {
-				console.log("Uploaded file to Storage!");
-			})
-			.catch(function (error) {
-				console.error("Error uploading to Storage: ", error);
-			});
+			await storageRef
+				.put(fileToUpload)
+				.then(function (snapshot) {
+					console.log("Uploaded file to Storage!");
+				})
+				.catch(function (error) {
+					console.error("Error uploading to Storage: ", error);
+				});
 
-		// Upload metadata to DB
+			// Upload metadata to Cloud Firestore
 
-		db.collection("imageCollection")
-			.doc(fileMetaData.name)
-			.set(fileMetaData)
-			.then(function () {
-				console.log("Document successfully written to Database!");
-			})
-			.catch(function (error) {
-				console.error("Error writing document: ", error);
-			});
+			await db
+				.collection("imageCollection")
+				.doc(fileMetaData.name)
+				.set(fileMetaData)
+				.then(function () {
+					console.log("Document successfully written to Database!");
+				})
+				.catch(function (error) {
+					console.error("Error writing document: ", error);
+				});
+		}
 
-		alert("File added to Storage and metadata added to Firestore!");
-		uploadForm.reset();
+		doubleUpload().then(function () {
+			alert("File added to Storage and metadata added to Firestore");
+			uploadForm.reset();
+		});
 	});
 } catch (e) {}
