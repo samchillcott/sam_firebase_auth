@@ -78,7 +78,6 @@ try {
 			}
 
 			// Upload to Storage
-
 			fileRef
 				.put(fileToUpload)
 				.then(function (snapshot) {
