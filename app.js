@@ -69,7 +69,6 @@ try {
 		};
 
 		// async function for both uploads
-
 		async function doubleUpload() {
 			// Upload to Storage
 
@@ -77,36 +76,32 @@ try {
 				.put(fileToUpload)
 				.then(function (snapshot) {
 					console.log("Uploaded file to Storage!");
+
+					// Upload metadata to Cloud Firestore
+
+					db.collection("imageCollection")
+						.doc(fileMetaData.name)
+						.set(fileMetaData)
+						.then(function () {
+							console.log("Document successfully written to Database!");
+							console.log("Double Upload complete");
+							alert("File added to Storage and metadata added to Firestore");
+							uploadForm.reset();
+						})
+						.catch(function (error) {
+							console.error("Error writing document: ", error);
+						});
 				})
 				.catch(function (error) {
 					if (error.code === "storage/unauthorized") {
 						console.log(error);
 						alert("Error uploading to Storage: Please sign up for an account");
+						uploadForm.reset();
 					} else {
 						alert(error);
 					}
 				});
-
-			// Upload metadata to Cloud Firestore
-
-			await db
-				.collection("imageCollection")
-				.doc(fileMetaData.name)
-				.set(fileMetaData)
-				.then(function () {
-					console.log("Document successfully written to Database!");
-				})
-				.catch(function (error) {
-					console.error("Error writing document: ", error);
-				});
 		}
-
-		doubleUpload().then(function () {
-			console.log("Double Upload complete");
-			alert("File added to Storage and metadata added to Firestore");
-			uploadForm.reset();
-		});
+		doubleUpload();
 	});
-} catch (e) {
-	console.log(e);
-}
+} catch (e) {}
