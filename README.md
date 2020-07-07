@@ -8,13 +8,13 @@ Spec to be copied over shortly/upon challenge completion.
 
 # User Workflow
 
-### User creates an account via Firebase with email and password
+### 1. User creates an account via Firebase with email and password
 
 - Appropriate alert fired if error
 - Success alert
 - Move user to upload page
 
-### User selects file to upload to Firebase (Storage and Cloud Firestore)
+### 2. User selects file to upload to Firebase (Storage and Cloud Firestore)
 
 - If they don't have an account alert request to signup (no uploads executed)
 - If authorised file gets uploaded to Firebase Storage and the metadata (consisting of file name, type and size) ripped from the file gets stored in Firebase Cloud Firestore database as a new document in a collection.
