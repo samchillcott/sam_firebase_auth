@@ -6,7 +6,7 @@ Challenge set by my mentor with a rule of only using the official docs (no follo
 
 Spec to be copied over shortly/upon challenge completion.
 
-# User Workflow
+## User Workflow
 
 ### 1. User creates an account via Firebase with email and password
 
