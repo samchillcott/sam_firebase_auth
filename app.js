@@ -50,7 +50,9 @@ try {
 		const file = document.querySelector("#myFile");
 		const fileToUpload = file.files[0];
 
-		var storageRef = firebase.storage().ref().child(file.files[0].name);
+		let storageRef = firebase.storage().ref();
+		let child = "Uploads/" + file.files[0].name;
+		let fileRef = storageRef.child(child);
 
 		//Convert bytes to size
 		function bytesToSize(bytes) {
@@ -70,9 +72,13 @@ try {
 
 		// async function for both uploads
 		async function doubleUpload() {
-			// Upload to Storage
+			var user = firebase.auth().currentUser;
+			if (user === null) {
+				return;
+			}
 
-			await storageRef
+			// Upload to Storage
+			fileRef
 				.put(fileToUpload)
 				.then(function (snapshot) {
 					console.log("Uploaded file to Storage!");
