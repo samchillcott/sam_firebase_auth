@@ -15,12 +15,14 @@ try {
 		// Check email address
 
 		function emailIsValid(email) {
+			console.log("email validation");
 			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-		};
+		}
 
-		emailIsValid(email);
+		let emailCheck = emailIsValid(email);
+		console.log(emailCheck);
 
-		if (emailIsValid === false) {
+		if (emailCheck === false) {
 			alert("Please format your email correctly");
 			return;
 		}
