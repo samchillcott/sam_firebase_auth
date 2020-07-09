@@ -10,8 +10,13 @@ try {
 
 		// get user email
 		const email = signupForm["email"].value;
-		// get user email
+		// get user password
 		const password = signupForm["password"].value;
+		
+		if (password.length < 6) {
+			alert("Password should be at least 6 characters");
+			return
+		}
 
 		const firebaseCreate = async () => {
 			let response = null;
@@ -71,8 +76,6 @@ try {
 			size: bytesToSize(file.files[0].size),
 			extension: file.files[0].type,
 		};
-
-		console.log(fileMetaData);
 
 		// async function for both uploads
 		async function doubleUpload() {
