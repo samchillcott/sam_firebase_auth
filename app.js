@@ -12,6 +12,7 @@ try {
 		// get user password
 		const password = signupForm["password"].value;
 
+		// Check password is at least 6 characters
 		if (password.length < 6) {
 			alert("Password should be at least 6 characters");
 			return;
@@ -95,15 +96,16 @@ try {
 					.doc(fileMetaData.name)
 					.set(fileMetaData);
 				console.log("Document successfully written to Database!");
-				console.log("Double Upload complete!");
-				alert("File added to Storage and metadata added to Firestore");
-				uploadForm.reset();
 			} catch (error) {
 				// Handle errors from both uploads here.
 				let errorCode = error.code;
 				let errorMessage = error.message;
 				alert(errorMessage);
 			}
+
+			console.log("Double Upload complete!");
+			alert("File added to Storage and metadata added to Firestore");
+			uploadForm.reset();
 		}
 		doubleUpload();
 	});
