@@ -4,14 +4,19 @@ const signupForm = document.querySelector("#signup-form");
 
 try {
 	// .addEventListener here
-
 	signupForm.addEventListener("submit", (e) => {
 		e.preventDefault();
 
 		// get user email
 		const email = signupForm["email"].value;
-		// get user email
+		// get user password
 		const password = signupForm["password"].value;
+
+		// Check password is at least 6 characters
+		if (password.length < 6) {
+			alert("Password should be at least 6 characters");
+			return;
+		}
 
 		const firebaseCreate = async () => {
 			let response = null;
@@ -28,7 +33,7 @@ try {
 					window.location.replace("./upload.html");
 				}
 			} catch (error) {
-				// Handle Errors here.
+				// Handle Errors here
 				let errorCode = error.code;
 				let errorMessage = error.message;
 				alert(errorMessage);
@@ -72,41 +77,35 @@ try {
 
 		// async function for both uploads
 		async function doubleUpload() {
-			var user = firebase.auth().currentUser;
+			// Check if (a) user is logged in
+			let user = firebase.auth().currentUser;
 			if (user === null) {
+				alert("Please sign up for an account to upload");
+				window.location.replace("./index.html");
 				return;
 			}
 
-			// Upload to Storage
-			fileRef
-				.put(fileToUpload)
-				.then(function (snapshot) {
-					console.log("Uploaded file to Storage!");
+			try {
+				// Upload to Storage
+				await fileRef.put(fileToUpload);
+				console.log("Uploaded file to Storage!");
 
-					// Upload metadata to Cloud Firestore
+				// Upload metadata to Cloud Firestore
+				await db
+					.collection("imageCollection")
+					.doc(fileMetaData.name)
+					.set(fileMetaData);
+				console.log("Document successfully written to Database!");
+			} catch (error) {
+				// Handle errors from both uploads here.
+				let errorCode = error.code;
+				let errorMessage = error.message;
+				alert(errorMessage);
+			}
 
-					db.collection("imageCollection")
-						.doc(fileMetaData.name)
-						.set(fileMetaData)
-						.then(function () {
-							console.log("Document successfully written to Database!");
-							console.log("Double Upload complete");
-							alert("File added to Storage and metadata added to Firestore");
-							uploadForm.reset();
-						})
-						.catch(function (error) {
-							console.error("Error writing document: ", error);
-						});
-				})
-				.catch(function (error) {
-					if (error.code === "storage/unauthorized") {
-						console.log(error);
-						alert("Error uploading to Storage: Please sign up for an account");
-						uploadForm.reset();
-					} else {
-						alert(error);
-					}
-				});
+			console.log("Double Upload complete!");
+			alert("File added to Storage and metadata added to Firestore");
+			uploadForm.reset();
 		}
 		doubleUpload();
 	});
