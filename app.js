@@ -12,25 +12,21 @@ try {
 		// get user password
 		const password = signupForm["password"].value;
 
-		// Check email address
-
+		// Check email address format
 		function emailIsValid(email) {
-			console.log("email validation");
 			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 		}
 
 		let emailCheck = emailIsValid(email);
-		console.log(emailCheck);
-
 		if (emailCheck === false) {
-			alert("Please format your email correctly");
+			alert("Please format your email correctly __ @ __ . __");
 			return;
-		}
-
-		// Check password is at least 6 characters
-		if (password.length < 6) {
-			alert("Password should be at least 6 characters");
-			return;
+		} else {
+			// Check password is at least 6 characters
+			if (password.length < 6) {
+				alert("Password should be at least 6 characters");
+				return;
+			}
 		}
 
 		const firebaseCreate = async () => {
