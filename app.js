@@ -76,13 +76,14 @@ try {
 
 		// async function for both uploads
 		async function doubleUpload() {
-			
 			// Check if (a) user is logged in
 			let user = firebase.auth().currentUser;
+
 			if (user === null) {
-				alert("Please sign up for an account");
+				alert("Please sign up for an account to upload");
+				window.location.replace("./index.html");
 				return;
-			};
+			}
 
 			try {
 				// Upload to Storage
@@ -100,7 +101,7 @@ try {
 				alert("File added to Storage and metadata added to Firestore");
 				uploadForm.reset();
 			} catch (error) {
-				// Handle Errors here.
+				// Handle errors from both uploads here.
 				let errorCode = error.code;
 				let errorMessage = error.message;
 				alert(errorMessage);
