@@ -76,7 +76,6 @@ try {
 
 		// async function for both uploads
 		async function doubleUpload() {
-			
 			// Check if (a) user is logged in
 			let user = firebase.auth().currentUser;
 			if (user === null) {
@@ -95,26 +94,15 @@ try {
 					.collection("imageCollection")
 					.doc(fileMetaData.name)
 					.set(fileMetaData);
-
-					console.log("Document successfully written to Database!");
-					console.log("Double Upload complete!");
-					alert("File added to Storage and metadata added to Firestore");
-					uploadForm.reset();
+				console.log("Document successfully written to Database!");
+				console.log("Double Upload complete!");
+				alert("File added to Storage and metadata added to Firestore");
+				uploadForm.reset();
 			} catch (error) {
 				// Handle errors from both uploads here.
 				let errorCode = error.code;
 				let errorMessage = error.message;
 				alert(errorMessage);
-
-				// 	if (error.code === "storage/unauthorized") {
-				// 		console.log(error);
-				// 		alert("Error uploading to Storage: Please sign up for an account");
-				// 		uploadForm.reset();
-
-				// }
-				// .catch(function (error) {
-				// 	console.error("Error writing document: ", error);
-				// });
 			}
 		}
 		doubleUpload();
