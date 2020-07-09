@@ -47,6 +47,8 @@ try {
 	uploadForm.addEventListener("submit", (e) => {
 		e.preventDefault();
 
+		console.log("submit fired");
+
 		const file = document.querySelector("#myFile");
 		const fileToUpload = file.files[0];
 
@@ -70,43 +72,49 @@ try {
 			extension: file.files[0].type,
 		};
 
+		console.log(fileMetaData);
+
 		// async function for both uploads
 		async function doubleUpload() {
-			var user = firebase.auth().currentUser;
+			
+			// Check if (a) user is logged in
+			let user = firebase.auth().currentUser;
 			if (user === null) {
+				alert("Please sign up for an account");
 				return;
+			};
+
+			try {
+				// Upload to Storage
+				await fileRef.put(fileToUpload);
+				console.log("Uploaded file to Storage!");
+
+				// Upload metadata to Cloud Firestore
+				await db
+					.collection("imageCollection")
+					.doc(fileMetaData.name)
+					.set(fileMetaData);
+
+				console.log("Document successfully written to Database!");
+				console.log("Double Upload complete!");
+				alert("File added to Storage and metadata added to Firestore");
+				uploadForm.reset();
+			} catch (error) {
+				// Handle Errors here.
+				let errorCode = error.code;
+				let errorMessage = error.message;
+				alert(errorMessage);
+
+				// 	if (error.code === "storage/unauthorized") {
+				// 		console.log(error);
+				// 		alert("Error uploading to Storage: Please sign up for an account");
+				// 		uploadForm.reset();
+
+				// }
+				// .catch(function (error) {
+				// 	console.error("Error writing document: ", error);
+				// });
 			}
-
-			// Upload to Storage
-			fileRef
-				.put(fileToUpload)
-				.then(function (snapshot) {
-					console.log("Uploaded file to Storage!");
-
-					// Upload metadata to Cloud Firestore
-
-					db.collection("imageCollection")
-						.doc(fileMetaData.name)
-						.set(fileMetaData)
-						.then(function () {
-							console.log("Document successfully written to Database!");
-							console.log("Double Upload complete");
-							alert("File added to Storage and metadata added to Firestore");
-							uploadForm.reset();
-						})
-						.catch(function (error) {
-							console.error("Error writing document: ", error);
-						});
-				})
-				.catch(function (error) {
-					if (error.code === "storage/unauthorized") {
-						console.log(error);
-						alert("Error uploading to Storage: Please sign up for an account");
-						uploadForm.reset();
-					} else {
-						alert(error);
-					}
-				});
 		}
 		doubleUpload();
 	});
