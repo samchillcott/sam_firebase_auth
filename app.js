@@ -4,7 +4,6 @@ const signupForm = document.querySelector("#signup-form");
 
 try {
 	// .addEventListener here
-
 	signupForm.addEventListener("submit", (e) => {
 		e.preventDefault();
 
@@ -12,10 +11,10 @@ try {
 		const email = signupForm["email"].value;
 		// get user password
 		const password = signupForm["password"].value;
-		
+
 		if (password.length < 6) {
 			alert("Password should be at least 6 characters");
-			return
+			return;
 		}
 
 		const firebaseCreate = async () => {
@@ -33,7 +32,7 @@ try {
 					window.location.replace("./upload.html");
 				}
 			} catch (error) {
-				// Handle Errors here.
+				// Handle Errors here
 				let errorCode = error.code;
 				let errorMessage = error.message;
 				alert(errorMessage);
@@ -51,8 +50,6 @@ const uploadForm = document.querySelector("#upload-form");
 try {
 	uploadForm.addEventListener("submit", (e) => {
 		e.preventDefault();
-
-		console.log("submit fired");
 
 		const file = document.querySelector("#myFile");
 		const fileToUpload = file.files[0];
@@ -79,9 +76,9 @@ try {
 
 		// async function for both uploads
 		async function doubleUpload() {
+			
 			// Check if (a) user is logged in
 			let user = firebase.auth().currentUser;
-
 			if (user === null) {
 				alert("Please sign up for an account to upload");
 				window.location.replace("./index.html");
@@ -99,10 +96,10 @@ try {
 					.doc(fileMetaData.name)
 					.set(fileMetaData);
 
-				console.log("Document successfully written to Database!");
-				console.log("Double Upload complete!");
-				alert("File added to Storage and metadata added to Firestore");
-				uploadForm.reset();
+					console.log("Document successfully written to Database!");
+					console.log("Double Upload complete!");
+					alert("File added to Storage and metadata added to Firestore");
+					uploadForm.reset();
 			} catch (error) {
 				// Handle errors from both uploads here.
 				let errorCode = error.code;
