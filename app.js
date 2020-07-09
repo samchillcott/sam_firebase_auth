@@ -12,6 +12,19 @@ try {
 		// get user password
 		const password = signupForm["password"].value;
 
+		// Check email address
+
+		function emailIsValid(email) {
+			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+		};
+
+		emailIsValid(email);
+
+		if (emailIsValid === false) {
+			alert("Please format your email correctly");
+			return;
+		}
+
 		// Check password is at least 6 characters
 		if (password.length < 6) {
 			alert("Password should be at least 6 characters");
