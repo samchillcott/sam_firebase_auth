@@ -97,7 +97,10 @@ try {
 				// Upload to Storage
 				await fileRef.put(fileToUpload);
 				console.log("Uploaded file to Storage!");
-
+			} catch (error) {
+				alert(error.message);
+			}
+			try {
 				// Upload metadata to Cloud Firestore
 				await db
 					.collection("imageCollection")
@@ -105,7 +108,6 @@ try {
 					.set(fileMetaData);
 				console.log("Document successfully written to Database!");
 			} catch (error) {
-				// Handle errors from both uploads here.
 				alert(error.message);
 			}
 
