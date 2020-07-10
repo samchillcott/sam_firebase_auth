@@ -12,10 +12,21 @@ try {
 		// get user password
 		const password = signupForm["password"].value;
 
-		// Check password is at least 6 characters
-		if (password.length < 6) {
-			alert("Password should be at least 6 characters");
+		// Check email address format
+		function emailIsValid(email) {
+			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+		}
+
+		let emailCheck = emailIsValid(email);
+		if (emailCheck === false) {
+			alert("Please format your email correctly __ @ __ . __");
 			return;
+		} else {
+			// Check password is at least 6 characters
+			if (password.length < 6) {
+				alert("Password should be at least 6 characters");
+				return;
+			}
 		}
 
 		const firebaseCreate = async () => {
@@ -33,10 +44,7 @@ try {
 					window.location.replace("./upload.html");
 				}
 			} catch (error) {
-				// Handle Errors here
-				let errorCode = error.code;
-				let errorMessage = error.message;
-				alert(errorMessage);
+				alert(error.message);
 			}
 		};
 
@@ -89,7 +97,12 @@ try {
 				// Upload to Storage
 				await fileRef.put(fileToUpload);
 				console.log("Uploaded file to Storage!");
-
+			} catch (error) {
+				console.log(error);
+				alert(error.message);
+				return;
+			}
+			try {
 				// Upload metadata to Cloud Firestore
 				await db
 					.collection("imageCollection")
@@ -97,10 +110,9 @@ try {
 					.set(fileMetaData);
 				console.log("Document successfully written to Database!");
 			} catch (error) {
-				// Handle errors from both uploads here.
-				let errorCode = error.code;
-				let errorMessage = error.message;
-				alert(errorMessage);
+				console.log(error);
+				alert(error.message);
+				return;
 			}
 
 			console.log("Double Upload complete!");
