@@ -98,7 +98,9 @@ try {
 				await fileRef.put(fileToUpload);
 				console.log("Uploaded file to Storage!");
 			} catch (error) {
+				console.log(error);
 				alert(error.message);
+				return;
 			}
 			try {
 				// Upload metadata to Cloud Firestore
@@ -108,7 +110,9 @@ try {
 					.set(fileMetaData);
 				console.log("Document successfully written to Database!");
 			} catch (error) {
+				console.log(error);
 				alert(error.message);
+				return;
 			}
 
 			console.log("Double Upload complete!");
