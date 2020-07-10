@@ -44,10 +44,7 @@ try {
 					window.location.replace("./upload.html");
 				}
 			} catch (error) {
-				// Handle Errors here
-				let errorCode = error.code;
-				let errorMessage = error.message;
-				alert(errorMessage);
+				alert(error.message);
 			}
 		};
 
@@ -109,9 +106,7 @@ try {
 				console.log("Document successfully written to Database!");
 			} catch (error) {
 				// Handle errors from both uploads here.
-				let errorCode = error.code;
-				let errorMessage = error.message;
-				alert(errorMessage);
+				alert(error.message);
 			}
 
 			console.log("Double Upload complete!");
