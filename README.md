@@ -63,4 +63,4 @@
 ## Watch Me Build This
 
 - #100daysofcode #82 - 94.
-- [Daily Videos - Instagram](https://www.instagram.com/p/CB-u2XUAMmQ/)
+- [Daily Videos - Instagram](https://www.instagram.com/samchillcott/)
