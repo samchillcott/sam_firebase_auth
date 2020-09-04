@@ -11,7 +11,7 @@
 - DOM manipulation.
 - Firebase Authentication.
 - Firebase Storage.
-- Firebase Cloud Firestore Database.
+- Firebase Cloud Firestore Database (NoSQL).
 - Firebase Hosting.
 
 ## Features / User Workflow
