@@ -1,3 +1,5 @@
+// Have left some console logs in for error handling and review
+
 // Sign Up
 
 const signupForm = document.querySelector("#signup-form");
